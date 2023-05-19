@@ -45,7 +45,7 @@ router.get ('/pending',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await userModal.aggregate([
-            {$match:{status:'pending'},
+            {$match:{status:false},
         
         }
        
@@ -65,7 +65,7 @@ router.get ('/succes',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await userModal.aggregate([
-            {$match:{status:'succes'},
+            {$match:{status:true},
         
         }
        

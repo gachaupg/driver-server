@@ -25,7 +25,7 @@ router.put("/:id", async (req, res) => {
   
     const todo = await UserModal.findById(req.params.id);
   
-    if (!todo) return res.status(404).send("UserModal not found...");
+    if (!todo) return res.status(404).send("UserModal was found...");
   
     const { name, isComplete,  } = req.body;
   
