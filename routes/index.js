@@ -85,7 +85,7 @@ router.get ('/rejected',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await userModal.aggregate([
-            {$match:{status:'rejected'},
+            {$match:{isComplete:true},
         
         }
        
