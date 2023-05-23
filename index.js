@@ -13,6 +13,8 @@ import testq from './routes/testq.js'
 import testa from './routes/testa.js'
 import agregateRouter from './routes/index.js'
 import todos from "./routes/todos.js";
+import reviewRouter from "./routes/todoReview.js";
+    // "node": ">=14 <15"
 
 const corsOptions ={
   origin:'*', 
@@ -29,7 +31,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use(cors(corsOptions));
 app.get('/',(req,res)=>{
-res.send('hello driver')
+    console.log('hello');
 })
 app.listen(PORT,()=>{
     console.log('listening');
@@ -44,6 +46,7 @@ app.use('/testq',testq)
 app.use('/testa',testa)
 app.use('/stats',agregateRouter)
 app.use("/api/todos", todos);
+app.use("/api/review", reviewRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL)

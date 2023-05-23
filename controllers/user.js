@@ -6,14 +6,14 @@ import UserModal from "../models/user.js";
 const secret = "test";
 
 export const signin = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password,task } = req.body;
 
   try {
     const oldUser = await UserModal.findOne({ email });
     if (!oldUser)
       return res.status(404).json({ message: "User doesn't exist" });
 
-    const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
+    const isPasswordCorrect = await bcrypt.compare(task, oldUser.task);
 
     if (!isPasswordCorrect)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -30,7 +30,7 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password, tell, firstname, lastname, createdAt } = req.body;
+  const { email, password,task, tell, firstname, lastname, createdAt } = req.body;
   try {
     const oldUser = await UserModal.findOne({ email });
 
@@ -38,11 +38,11 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(task, 12);
 
     const result = await UserModal.create({
       email,
-      password: hashedPassword,
+      task: hashedPassword,
       name: `${firstname} ${lastname}`,
       tell,
 
@@ -54,6 +54,7 @@ export const signup = async (req, res) => {
         tell: result.tell,
         name: result.name,
         email: result.email,
+      
         id: result._id,
       },
       secret,
@@ -149,3 +150,27 @@ export const userStatus= async (req,res)=>{
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+export const deleteTour = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ message: `No tour exist with id: ${id}` });
+    }
+    await TourModal.findByIdAndRemove(id);
+    res.json({ message: "Tour deleted successfully" });
+  } catch (error) {
+    res.status(404).json({ message: "Something went wrong" });
+  }
+};
+
+export const updateTour = async (req, res) => {
+  UserModal.findOneAndUpdate({}, { $set: { status: req.body.status } }, { new: true })
+    .then(updatedStatus => {
+      res.json(updatedStatus);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while updating the status' });
+    });
+};

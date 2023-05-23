@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
   name: {type:String},
+  task: {type:String},
   email: { type: String,unique: true},
   password: { type: String },
   tell: { type: String },
@@ -14,7 +15,7 @@ const userSchema = mongoose.Schema({
     // default: 'pending'
   },
   isComplete: {type:Boolean , default:false},
-
+  isComplete1: {type:Boolean , default:false},
 
 },
 {timestamps:true});

@@ -5,23 +5,29 @@ import UserModal from "../models/user.js";
 export const createTour = async (req, res) => {
   const {
     picture,
-    userId,
     address,
     phone,
     firstname,
     lastname,
+    userId,
+    task,
     creator,
     createdAt,
+    countInStock,
+    rating,
+    numReviews,
   } = req.body;
-  const user = await UserModal.findById(userId);
   const newTour = new TourModal({
     creator: req.userId,
-    userId: req.userId,
     address,
     phone,
     picture,
     name: `${firstname} ${lastname}`,
-
+    countInStock: 0,
+    rating: 0,
+    userId: req.userId,
+    task,
+    numReviews: 0,
     createdAt: new Date().toISOString(),
   });
 
@@ -29,7 +35,7 @@ export const createTour = async (req, res) => {
     await newTour.save();
     res.status(201).json(newTour);
   } catch (error) {
-    res.status(404).json({ message: "Something went wrong" });
+    res.status(404).json({ message: "Something went wrongs" });
   }
 };
 
@@ -80,13 +86,45 @@ export const getTour = async (req, res) => {
   }
 };
 
-export const getToursByUser   = async (req, res) => {
+export const getToursByUser = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ message: "User doesn't exist" });
   }
   const userTours = await TourModal.find({ creator: id });
   res.status(200).json(userTours);
+};
+
+export const Rating = async (req, res) => {
+  const productId = req.params.id;
+  const product = await TourModal.findById(productId);
+  if (product) {
+    if (product.reviews.find((x) => x.name === req.user.name)) {
+      return res
+        .status(400)
+        .send({ message: "You already submitted a review" });
+    }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(req.body.rating),
+      comment: req.body.comment,
+    };
+    product.reviews.push(review);
+    product.numReviews = product.reviews.length;
+    product.rating =
+      product.reviews.reduce((a, c) => c.rating + a, 0) /
+      product.reviews.length;
+    const updatedProduct = await product.save();
+    res.status(201).send({
+      message: "Review Created",
+      review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+      numReviews: product.numReviews,
+      rating: product.rating,
+    });
+  } else {
+    res.status(404).send({ message: "Product Not Found" });
+  }
 };
 
 export const deleteTour = async (req, res) => {

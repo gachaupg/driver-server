@@ -1,18 +1,21 @@
 import mongoose from "mongoose";
+const reviewSchema = new mongoose.Schema(
+  {
+    name: { type: String },
+    comment: { type: String },
+    rating: { type: Number },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const tourSchema = mongoose.Schema({
   name: {type:String},
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  
   phone:{type:String},
   address:{type:String},
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+ 
   userId: {
     type: String,
     // required: true,
@@ -24,7 +27,16 @@ const tourSchema = mongoose.Schema({
     enum: ['pending', 'success', 'rejected'],
     default: 'pending',
   },
- 
+  userId: {
+    type: String,
+    required: true,
+  },
+  isComplete: {type:Boolean , default:false},
+  countInStock: { type: Number},
+task:{type:Number},
+rating: { type: Number },
+    numReviews: { type: Number},
+    reviews: [reviewSchema],
   creator: String,
   createdAt: {
     type: Date,

@@ -13,7 +13,7 @@ export const createTour = async (req, res) => {
     await newTour.save();
     res.status(201).json(newTour);
   } catch (error) {
-    res.status(404).json({ message: "Something went wrong" });
+    res.status(404).json({ message: "Something went wrongss" });
   }
 };
 

@@ -16,6 +16,7 @@ const auth = async (req, res, next) => {
       const googleId = decodedData?.sub.toString();
       const user = await UserModel.findOne({ googleId });
       req.userId = user?._id;
+      
     }
     next();
   } catch (error) {
