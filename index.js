@@ -31,7 +31,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use(cors(corsOptions));
 app.get('/',(req,res)=>{
-    console.log('hello');
+    res.send('hello');
 })
 app.listen(PORT,()=>{
     console.log('listening');
