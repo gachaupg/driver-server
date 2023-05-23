@@ -14,6 +14,7 @@ import testa from './routes/testa.js'
 import agregateRouter from './routes/index.js'
 import todos from "./routes/todos.js";
 import reviewRouter from "./routes/todoReview.js";
+import commentRouter from "./routes/commentUpdate.js";
     // "node": ">=14 <15"
 
 const corsOptions ={
@@ -47,6 +48,7 @@ app.use('/testa',testa)
 app.use('/stats',agregateRouter)
 app.use("/api/todos", todos);
 app.use("/api/review", reviewRouter);
+app.use("/api/comment", commentRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL)
