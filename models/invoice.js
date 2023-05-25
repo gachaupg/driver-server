@@ -1,9 +1,24 @@
 import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema({
-  products: { type: String, required: true, minlength: 3, maxlength: 200 },
+  products: { 
+    name:{type:String},
+    task:{type:String},
+    role:{type:String},
+    email:{type:String},
+    tell:{type:String},
+
+
+},
   isComplete: {type:Boolean , default:false},
-  user: { type: Date, default: new Date() },
+  user: [
+    {name:{type:String}},
+    {address:{type:String}},
+    {task:{type:Number}},
+    {creator:{type:String}},
+    {phone:{type:Number}},
+    {picture:{type:String}},
+  ],
 },{timestamps:true});
 
 const Todo = mongoose.model("Invoice", todoSchema);
