@@ -27,17 +27,17 @@ router.post("/", auth, async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { user, userId, products, isComplete, date, uid } = req.body;
+    const { name, address, phone, id, userId,  } = req.body;
 
     let todo = new Todo({
-      products,
-      user,
+      name,
+      address,
       creator:req.userId,
-      rating,
-      isComplete,
-      userId: req.userId,
-      date,
-      uid,
+      phone,
+      userId,
+      id,
+      
+      
     });
 
     todo = await todo.save();
