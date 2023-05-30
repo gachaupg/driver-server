@@ -42,7 +42,7 @@ rating: { type: Number },
     type: Date,
     default: new Date(),
   },
-  
+  date: { type: Date, default: new Date() },
 },
 {timestamps:true});
 

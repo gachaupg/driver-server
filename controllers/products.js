@@ -15,12 +15,14 @@ export const createTour = async (req, res) => {
     createdAt,
     countInStock,
     rating,
+    date,
     numReviews,
   } = req.body;
   const newTour = new TourModal({
     creator: req.userId,
     address,
     phone,
+    date,
     picture,
     name: `${firstname} ${lastname}`,
     countInStock: 0,
