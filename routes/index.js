@@ -90,7 +90,7 @@ router.get ('/rejected',  async (req,res)=>{
         ]);
         res.status(200).send(users);
     } catch (error) {
-        console.log(error);
+        console.log('error',error);
         res.status(500).send(error)
     }
 })
