@@ -37,7 +37,7 @@ task:{type:Number},
 rating: { type: Number },
     numReviews: { type: Number},
     reviews: [reviewSchema],
-    diriverName: String,
+    driverName: String,
     driverTell: String,
   creator: String,
   createdAt: {
