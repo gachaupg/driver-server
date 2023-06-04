@@ -15,6 +15,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post('getbyuser/:id', async(req,res)=>{
+  try {
+    const { userId } = req.params;
+    const post = await Todo.find({ userId });
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+})
+
 router.post("/", auth, async (req, res) => {
   try {
     // const schema = Joi.object({
