@@ -26,6 +26,8 @@ const corsOptions ={
 
 const PORT=5000
 const app=express()
+app.set("view engine", "ejs");
+
 dotenv.config()
 app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));

@@ -1,5 +1,5 @@
 import express from "express";
-import { signup, signin, AllUsers, getUser, updateStatusTour, userStatus, updateTour } from "../controllers/user.js";
+import { signup, signin, AllUsers, getUser, updateStatusTour, userStatus, updateTour, forgotPassword, resetPassword, changePassword } from "../controllers/user.js";
 import UserModal from "../models/user.js";
 import Joi from "joi";
 
@@ -9,6 +9,9 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 router.get("/", AllUsers);
 router.get("/:id", getUser);
+router.post("/forgotpassword", forgotPassword);
+router.get("/reset-password/:id/:token", resetPassword);
+router.post("/reset-password/:id/:token", changePassword);
 // router.put("/:id",  userStatus);
 router.put("/update/:id", updateTour)
 // router.put("/:id", async (req, res) => {
