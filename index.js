@@ -29,7 +29,7 @@ const corsOptions ={
 const PORT=5000
 const app=express()
 app.set("view engine", "ejs");
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 dotenv.config()
 app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));
