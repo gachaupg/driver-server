@@ -40,6 +40,8 @@ rating: { type: Number },
     driverName: String,
     driverTell: String,
   creator: String,
+  quiz: String,
+  feedback: String,
   createdAt: {
     type: Date,
     default: new Date(),

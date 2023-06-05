@@ -16,6 +16,8 @@ import todos from "./routes/todos.js";
 import reviewRouter from "./routes/todoReview.js";
 import commentRouter from "./routes/commentUpdate.js";
 import invoiceRouter from "./routes/invoice.js";
+import quizRouter from "./routes/Quiz.js";
+import feedbackRouter from "./routes/feedback.js";
     // "node": ">=14 <15"
 
 const corsOptions ={
@@ -53,6 +55,8 @@ app.use("/api/todos", todos);
 app.use("/api/review", reviewRouter);
 app.use("/api/comment", commentRouter);
 app.use("/invoice", invoiceRouter);
+app.use("/quiz", quizRouter);
+app.use("/feedback", feedbackRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL)
