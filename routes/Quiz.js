@@ -26,9 +26,9 @@ router.post("/", async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { task, author, isComplete, date, uid } = req.body;
+    const { quiz, author, isComplete, date, uid } = req.body;
 
-    let todo = new Todo({ task, author, isComplete, date, uid });
+    let todo = new Todo({ quiz, author, isComplete, date, uid });
 
     todo = await todo.save();
     res.send(todo);
