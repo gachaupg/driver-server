@@ -34,6 +34,7 @@ const tourSchema = mongoose.Schema({
   isComplete: {type:Boolean , default:false},
   countInStock: { type: Number},
 task:{type:Number},
+quiz:'',
 rating: { type: Number },
     numReviews: { type: Number},
     reviews: [reviewSchema],
