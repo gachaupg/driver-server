@@ -1,6 +1,7 @@
 import Todo from "../models/products.js";
 import express from "express";
 import Joi from "joi";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -14,7 +15,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('getbyuser/:id', async(req,res)=>{
+  try {
+    const { userId } = req.params;
+    const post = await Todo.find({ userId });
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+})
+
+router.post("/", auth, async (req, res) => {
   try {
     // const schema = Joi.object({
     //   task: Joi.string().min(3).max(300).required(),
@@ -26,9 +37,17 @@ router.post("/", async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { task, author, isComplete, date, uid } = req.body;
+    const { task, userId, rating, author, isComplete, date, uid } = req.body;
 
-    let todo = new Todo({ task, author, isComplete, date, uid });
+    let todo = new Todo({
+      task,
+      author,
+      rating,
+      isComplete,
+      userId: req.userId,
+      date,
+      uid,
+    });
 
     todo = await todo.save();
     res.send(todo);
@@ -68,33 +87,7 @@ router.put("/test/:id", async (req, res) => {
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
     // {  isComplete:true, uid},
-    {status:true,uid},
-    { new: true }
-  );
-
-  res.send(updatedTodo);
-});
-router.put("/status/:id", async (req, res) => {
-  const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
-    isComplete: Joi.boolean(),
-    date: Joi.date(),
-  });
-
-  const { error } = schema.validate(req.body);
-
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const todo = await Todo.findById(req.params.id);
-
-  if (!todo) return res.status(404).send("Todo not found...");
-
-  const { status, isComplete, uid } = req.body;
-
-  const updatedTodo = await Todo.findByIdAndUpdate(
-    req.params.id,
-    {  isComplete:true, uid},
-    
+    { status: true, uid },
     { new: true }
   );
 
@@ -116,12 +109,11 @@ router.put("/:id", async (req, res) => {
 
   if (!todo) return res.status(404).send("Todo not found...");
 
-  const { task, isComplete, uid } = req.body;
+  const { task, author, isComplete, date, uid } = req.body;
 
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
-    {  task, uid},
-    {status:true,uid},
+    { task, author, isComplete, date, uid },
     { new: true }
   );
 
