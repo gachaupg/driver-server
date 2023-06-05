@@ -26,9 +26,9 @@ router.post("/", async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { quiz, author, isComplete, date, uid } = req.body;
+    const { task, author, isComplete, date, uid } = req.body;
 
-    let todo = new Todo({ quiz, author, isComplete, date, uid });
+    let todo = new Todo({ task, author, isComplete, date, uid });
 
     todo = await todo.save();
     res.send(todo);
@@ -116,11 +116,11 @@ router.put("/:id", async (req, res) => {
 
   if (!todo) return res.status(404).send("Todo not found...");
 
-  const { quiz, isComplete, uid } = req.body;
+  const { task, isComplete, uid } = req.body;
 
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
-    {  quiz, uid},
+    {  task, uid},
     {status:true,uid},
     { new: true }
   );
