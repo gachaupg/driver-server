@@ -102,11 +102,11 @@ router.put("/status/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
-    isComplete: Joi.boolean(),
-    date: Joi.date(),
-  });
+//   const schema = Joi.object({
+    // task: Joi.string().min(3).max(300).required(),
+    // isComplete: Joi.boolean(),
+    // date: Joi.date(),
+//   });
 
   const { error } = schema.validate(req.body);
 
