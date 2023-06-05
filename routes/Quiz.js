@@ -1,4 +1,4 @@
-import Todo from "../models/user.js";
+import Todo from "../models/products.js";
 import express from "express";
 import Joi from "joi";
 
