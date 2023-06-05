@@ -69,7 +69,7 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/test/:id", async (req, res) => {
   const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
+    task: Joi.string().min(3).max(300),
     isComplete: Joi.boolean(),
     date: Joi.date(),
   });
@@ -96,7 +96,7 @@ router.put("/test/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const schema = Joi.object({
-    task: Joi.string().min(0).max(300).required(),
+    task: Joi.string().min(0).max(300),
     isComplete: Joi.boolean(),
     date: Joi.date(),
   });
@@ -109,11 +109,11 @@ router.put("/:id", async (req, res) => {
 
   if (!todo) return res.status(404).send("Todo not found...");
 
-  const { task, author, isComplete, date, uid } = req.body;
+  const { task,quiz, author, isComplete, date, uid } = req.body;
 
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
-    { task, author, isComplete, date, uid },
+    { task,quiz, author, isComplete, date, uid },
     { new: true }
   );
 
