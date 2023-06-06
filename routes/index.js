@@ -45,7 +45,7 @@ router.get ('/pending',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await userModal.aggregate([
-            { $match : {status:false} || { isComplete:false}  },
+            { $match : {status:false,isComplete:false}  },
        
         ]);
         res.status(200).send(users);
