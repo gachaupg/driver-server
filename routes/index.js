@@ -63,7 +63,7 @@ router.get ('/succes',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await userModal.aggregate([
-            {$match:{isComplete:true,status:true,status:false},
+            {$match:{isComplete:true|| { status:false} ||{status:true}},
         
         }
        
