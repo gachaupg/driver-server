@@ -121,7 +121,7 @@ router.put("/:id", async (req, res) => {
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
     // {  isComplete:true, uid},
-    {status:true,uid},
+    {status:true, isComplete:false, uid},
     { new: true }
   );
 

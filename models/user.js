@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
   // phone:{type:Number},
   status: {
     type: Boolean,
-    default:false
+    default:true
     // enum: ['pending', 'active'],
     // default: 'pending'
   },
