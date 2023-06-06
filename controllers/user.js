@@ -202,7 +202,7 @@ export const  forgotPassword= async(req,res)=>{
       to: email,
       subject: "Notification from dull dush",
       
-      text:message, ,
+      text:message, 
     };
   
     transporter.sendMail(mailOptions, function (error, info) {
