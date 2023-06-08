@@ -8,7 +8,8 @@ const todoSchema = new mongoose.Schema(
     phone: { type: String },
     id: { type: String },
     creator: { type: String },
-    userId:{type:String}
+    userId:{type:String},
+    cut:{type:String},
   },
   { timestamps: true }
 );

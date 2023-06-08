@@ -27,7 +27,7 @@ router.post("/", auth, async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { name, address, phone, id, userId,  } = req.body;
+    const { name, address,cut, phone, id, userId,  } = req.body;
 
     let todo = new Todo({
       name,
@@ -36,7 +36,7 @@ router.post("/", auth, async (req, res) => {
       phone,
       userId,
       id,
-      
+      cut,
       
     });
 
