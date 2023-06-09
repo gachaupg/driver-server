@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 import UserModal from "../models/user.js";
 
 export const createAddress = async (req, res) => {
-  const {name,creator,userId,phone,address,id} = req.body;
+  const {name,creator,userId,phone,cut,address,id} = req.body;
   const newTour = new TourModal({
     creator: req.userId,id,
-    name,userId,phone,address,
+    name,userId,phone,address,cut,
     createdAt: new Date().toISOString(),
   });
 
