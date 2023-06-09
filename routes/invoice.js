@@ -1,114 +1,31 @@
-import Todo from "../models/invoice.js";
 import express from "express";
-import Joi from "joi";
 import auth from "../middleware/auth.js";
+import { verifyToken } from "../middleware/jwt.js";
+import { createAddress, getAddress, getAdressById } from "../controllers/Invoice.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    const todos = await Todo.find().sort({ date: -1 });
-    res.send(todos);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Error: " + error.message);
-  }
-});
-
-router.post("/", auth, async (req, res) => {
-  try {
-    // const schema = Joi.object({
-    //   task: Joi.string().min(3).max(300).required(),
-    //   isComplete: Joi.boolean(),
-    //   date: Joi.date(),
-    // });
-
-    // const { error } = schema.validate(req.body);
-
-    // if (error) return res.status(400).send(error.details[0].message);
-
-    const { name, address,cut, phone, id, userId,  } = req.body;
-
-    let todo = new Todo({
-      name,
-      address,
-      creator:req.userId,
-      phone,
-      userId,
-      id,
-      cut,
-      
-    });
-
-    todo = await todo.save();
-    res.send(todo);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send(error.message);
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  const todo = await Todo.findById(req.params.id);
-
-  if (!todo) return res.status(404).send("Todo not found...");
-
-  const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
-
-  res.send(deletedTodo);
-});
-
-router.put("/test/:id", async (req, res) => {
-  const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
-    isComplete: Joi.boolean(),
-    date: Joi.date(),
+router.get("/search:key", async (req, res) => {
+  let result = await TourModal.find({
+    $or: [
+      {
+        houseNo: { $regex: req.params.key },
+      },
+    ],
   });
-
-  const { error } = schema.validate(req.body);
-
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const todo = await Todo.findById(req.params.id);
-
-  if (!todo) return res.status(404).send("Todo not found...");
-
-  const { status, isComplete, uid } = req.body;
-
-  const updatedTodo = await Todo.findByIdAndUpdate(
-    req.params.id,
-    // {  isComplete:true, uid},
-    { status: true, uid },
-    { new: true }
-  );
-
-  res.send(updatedTodo);
+  res.send(result);
 });
 
-router.put("/:id", async (req, res) => {
-  const schema = Joi.object({
-    task: Joi.string().min(0).max(300).required(),
-    isComplete: Joi.boolean(),
-    date: Joi.date(),
-  });
+router.get("/", getAddress);
+router.get("/:id", getAdressById);
+router.get("/userTours/:id", auth, getToursByUser);
 
-  const { error } = schema.validate(req.body);
-
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const todo = await Todo.findById(req.params.id);
-
-  if (!todo) return res.status(404).send("Todo not found...");
-
-  const { task, author, isComplete, date, uid } = req.body;
-
-  const updatedTodo = await Todo.findByIdAndUpdate(
-    req.params.id,
-    { task, author, isComplete, date, uid },
-    { new: true }
-  );
-
-  res.send(updatedTodo);
-});
+// router.get("/:userId/posts",  getToursByUser);
+// router.put('/:orderId', updateOrderStatus)
+router.post("/", auth, createAddress);
+router.delete("/:id", auth, deleteTour);
+router.patch("/:id", auth, updateTour);
+router.get("/userProjects/:id", auth, getToursByUser);
+router.put("/rating/:id", Rating);
 
 export default router;
