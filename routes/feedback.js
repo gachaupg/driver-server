@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     res.send(todos);
   } catch (error) {
     console.log(error.message);
-    res.status(500).send("Error message: " + error.message);
+    res.status(500).send("Error messages: " + error.message);
   }
 });
 
