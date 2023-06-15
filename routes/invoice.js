@@ -1,7 +1,7 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import { verifyToken } from "../middleware/jwt.js";
-import { createAddress, getAddress, getAdressById } from "../controllers/Invoice.js";
+import { Rating, createAddress, deleteTour, getAddress, getAdressById, getToursByUser, updateTour } from "../controllers/Invoice.js";
 
 const router = express.Router();
 
