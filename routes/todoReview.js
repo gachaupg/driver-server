@@ -109,11 +109,11 @@ router.put("/:id", async (req, res) => {
 
   if (!todo) return res.status(404).send("Todo not found...");
 
-  const { task, author, isComplete, date, uid } = req.body;
+  const { task, author,feedback, isComplete, date, uid } = req.body;
 
   const updatedTodo = await Todo.findByIdAndUpdate(
     req.params.id,
-    { task, author, isComplete, date, uid },
+    { task, author,feedback, isComplete, date, uid },
     { new: true }
   );
 
