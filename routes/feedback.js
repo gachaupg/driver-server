@@ -1,4 +1,4 @@
-import Todo from "../models/user.js";
+import Todo from "../models/products.js";
 import express from "express";
 import Joi from "joi";
 
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     // const schema = Joi.object({
-    //   task: Joi.string().min(3).max(300).required(),
+    //   feedback: Joi.string().min(3).max(300).required(),
     //   isComplete: Joi.boolean(),
     //   date: Joi.date(),
     // });
@@ -26,9 +26,9 @@ router.post("/", async (req, res) => {
 
     // if (error) return res.status(400).send(error.details[0].message);
 
-    const { task, author, isComplete, date, uid } = req.body;
+    const {  author, feedback,isComplete, date, uid } = req.body;
 
-    let todo = new Todo({ task, author, isComplete, date, uid });
+    let todo = new Todo({  author,feedback, isComplete, date, uid });
 
     todo = await todo.save();
     res.send(todo);
@@ -50,7 +50,7 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/test/:id", async (req, res) => {
   const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
+    feedback: Joi.string().min(3).max(300).required(),
     isComplete: Joi.boolean(),
     date: Joi.date(),
   });
@@ -76,7 +76,7 @@ router.put("/test/:id", async (req, res) => {
 });
 router.put("/status/:id", async (req, res) => {
   const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
+    feedback: Joi.string().min(3).max(300).required(),
     isComplete: Joi.boolean(),
     date: Joi.date(),
   });
@@ -103,7 +103,7 @@ router.put("/status/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const schema = Joi.object({
-    task: Joi.string().min(3).max(300).required(),
+    feedback: Joi.string().min(3).max(300).required(),
     isComplete: Joi.boolean(),
     date: Joi.date(),
   });
