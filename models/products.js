@@ -12,6 +12,8 @@ const reviewSchema = new mongoose.Schema(
 
 const tourSchema = mongoose.Schema({
   name: {type:String},
+  item: {type:String},
+  images: {type:Array},
   
   phone:{type:String},
   address:{type:String},

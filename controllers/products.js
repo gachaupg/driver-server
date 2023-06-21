@@ -4,8 +4,10 @@ import UserModal from "../models/user.js";
 
 export const createTour = async (req, res) => {
   const {
+    item,
     picture,
     address,
+    images,
     phone,
     firstname,
     lastname,
@@ -23,6 +25,8 @@ export const createTour = async (req, res) => {
   const newTour = new TourModal({
     creator: req.userId,
     address,
+    item,
+    images,
     phone,
     date,
     picture,
