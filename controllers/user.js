@@ -63,6 +63,7 @@ export const signup = async (req, res) => {
       isSeller,
       location,
       date,
+      img,
       password,
       createdAt: new Date().toISOString(),
     });
@@ -70,6 +71,7 @@ export const signup = async (req, res) => {
     const token = jwt.sign(
       {
         tell: result.tell,
+        img:result.img,
         name: result.name,
         email: result.email,
         phone: result.phone,
