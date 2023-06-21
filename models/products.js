@@ -1,19 +1,55 @@
 import mongoose from "mongoose";
-const reviewSchema = new mongoose.Schema(
-  {
-    name: { type: String },
-    comment: { type: String },
-    rating: { type: Number },
-  },
-  {
-    timestamps: true,
-  }
-);
+
+
+
+
+
+
+
+
+
 
 const tourSchema = mongoose.Schema({
-  name: {type:String},
+ 
+    name: {
+      type: String,
+      required: [true, "can't be blank"]
+    },
+    description: {
+      type: String,
+      required: [true, "can't be blank"]
+    },
+    discountPrice: { type: Number},
+    brand: { type: String},
+  creator:{type:String},
+    price: {
+      type: String,
+      required: [true, "can't be blank"]
+    },
+    picture:{type:String},
+    discountPercentage: { type: Number, min:[1, 'wrong min discount'], max:[99, 'wrong max discount']},
+    location:{type:String},
+    numberItems:{type:Number},
+    age:{type:Number},
+    infoAdd:{type:String},
+    specifications:{type:String},
+    category: {
+      type: String,
+     
+    },
+    rating: { type: Number, min:[0, 'wrong min rating'], max:[5, 'wrong max price'], default:0},
+  stock: { type: Number, min:[0, 'wrong min stock'], default:0},
+    images: {
+      type: Array,
+      
+    },
+ 
+
+
+
+
   
-  phone:{type:String},
+
   address:{type:String},
  
   userId: {
