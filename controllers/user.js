@@ -1,13 +1,13 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 
 import UserModal from "../models/user.js";
 
 const secret = "test";
 
 export const signin = async (req, res) => {
-  const { email, password,task } = req.body;
+  const { email, password, task } = req.body;
 
   try {
     const oldUser = await UserModal.findOne({ email });
@@ -31,7 +31,20 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password,task, tell, firstname, lastname, createdAt } = req.body;
+  const {
+    email,
+    phone,
+    img,
+    isSeller,
+    location,
+    date,
+    password,
+    task,
+    tell,
+    firstname,
+    lastname,
+    createdAt,
+  } = req.body;
   try {
     const oldUser = await UserModal.findOne({ email });
 
@@ -46,7 +59,11 @@ export const signup = async (req, res) => {
       task: hashedPassword,
       name: `${firstname} ${lastname}`,
       tell,
-
+      phone,
+      isSeller,
+      location,
+      date,
+      password,
       createdAt: new Date().toISOString(),
     });
 
@@ -55,7 +72,10 @@ export const signup = async (req, res) => {
         tell: result.tell,
         name: result.name,
         email: result.email,
-      
+        phone: result.phone,
+        isSeller: result.isSeller,
+        date: result.date,
+        location: result.location,
         id: result._id,
       },
       secret,
@@ -131,8 +151,7 @@ export const updateStatusTour = async (req, res) => {
   }
 };
 
-
-export const userStatus= async (req,res)=>{
+export const userStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await UserModal.findByIdAndUpdate(
@@ -142,15 +161,15 @@ export const userStatus= async (req,res)=>{
     );
 
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
-    res.json({ message: 'Product status updated successfully' });
+    res.json({ message: "Product status updated successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
-}
+};
 
 export const deleteTour = async (req, res) => {
   const { id } = req.params;
@@ -166,43 +185,53 @@ export const deleteTour = async (req, res) => {
 };
 
 export const updateTour = async (req, res) => {
-  UserModal.findOneAndUpdate({}, { $set: { status: req.body.status } }, { new: true })
-    .then(updatedStatus => {
+  UserModal.findOneAndUpdate(
+    {},
+    { $set: { status: req.body.status } },
+    { new: true }
+  )
+    .then((updatedStatus) => {
       res.json(updatedStatus);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
-      res.status(500).json({ error: 'An error occurred while updating the status' });
+      res
+        .status(500)
+        .json({ error: "An error occurred while updating the status" });
     });
 };
-export const  forgotPassword= async(req,res)=>{
-  const {email,message}=req.body
-  
+export const forgotPassword = async (req, res) => {
+  const { email, message } = req.body;
+
   try {
-      const oldUser= await UserModal.findOne({email});
-  if(!oldUser){
-      return res.status(400).json({message:'user with that email does not exist'})
-  }
-  const sec= secret + oldUser.password;
-  const token =jwt.sign({email:oldUser.email,id:oldUser._id},sec,{expiresIn:'100m'})  
-  const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
-  
-  // console.log(link);
-  var transporter = nodemailer.createTransport({
+    const oldUser = await UserModal.findOne({ email });
+    if (!oldUser) {
+      return res
+        .status(400)
+        .json({ message: "user with that email does not exist" });
+    }
+    const sec = secret + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, sec, {
+      expiresIn: "100m",
+    });
+    const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
+
+    // console.log(link);
+    var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "petergachau57@gmail.com",
         pass: "atgwlwufhipufmte",
-      //   kvoqqhjcvsmgupko
+        //   kvoqqhjcvsmgupko
       },
     });
-  
+
     var mailOptions = {
       from: "petergachau57@gmail.com",
       to: email,
       subject: "Notification from dull dush",
-      text:link, 
-      html:`
+      text: link,
+      html: `
       <h3>Notification</h3>
       <ul>
       <li>
@@ -211,10 +240,9 @@ export const  forgotPassword= async(req,res)=>{
       </ul>
       
       
-      `
-      
+      `,
     };
-  
+
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
@@ -223,52 +251,45 @@ export const  forgotPassword= async(req,res)=>{
       }
     });
     console.log(link);
-  
-  } catch (error) {
-      
+  } catch (error) {}
+};
+
+export const resetPassword = async (req, res) => {
+  const { id, token } = req.params;
+  console.log(req.params);
+  const oldUser = await UserModal.findOne({ _id: id });
+  if (!oldUser) {
+    return res
+      .status(400)
+      .json({ message: "user with that email does not exist" });
   }
-  
-  
-  }
-  
-  
-  export const  resetPassword = async(req,res)=>{
-    const {id,token}=req.params
-    console.log(req.params); 
-    const oldUser= await UserModal.findOne({_id:id});
-    if(!oldUser){
-      return res.status(400).json({message:'user with that email does not exist'})
-  }
-  const sec= secret + oldUser.password;
-  
+  const sec = secret + oldUser.password;
+
   try {
-      const  verify=jwt.verify(token,sec)
-  res.render("index",{email:verify.email,status: " not Verified"})
-  
-  
+    const verify = jwt.verify(token, sec);
+    res.render("index", { email: verify.email, status: " not Verified" });
   } catch (error) {
-      console.log(error);
-      return res.status(400).json({message:'not verified'})
-  
+    console.log(error);
+    return res.status(400).json({ message: "not verified" });
   }
-  
-  
+};
+
+export const changePassword = async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  const oldUser = await UserModal.findOne({ _id: id });
+  if (!oldUser) {
+    return res
+      .status(400)
+      .json({ message: "user with that email does not exist" });
   }
-  
-  export const  changePassword = async(req,res)=>{
-      const {id,token}=req.params
-      const {password}=req.body
-      const oldUser= await UserModal.findOne({_id:id});
-      if(!oldUser){
-        return res.status(400).json({message:'user with that email does not exist'})
-    }
-    const sec= secret + oldUser.password;
-    
-    try {
-        const  verify=jwt.verify(token,sec)
-  const encryptedPassword = await bcrypt.hash(password, 10);
-  
-  await UserModal.updateOne(
+  const sec = secret + oldUser.password;
+
+  try {
+    const verify = jwt.verify(token, sec);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    await UserModal.updateOne(
       {
         _id: id,
       },
@@ -277,15 +298,11 @@ export const  forgotPassword= async(req,res)=>{
           password: encryptedPassword,
         },
       }
-    ); 
-     res.render("index",{email:verify.email,status: "Verified"})
-  
-  //   return res.status(400).json({message:'password updated'})
-  
-    } catch (error) {
-        console.log(error);
-    
-    }
-    
-    
-    }
+    );
+    res.render("index", { email: verify.email, status: "Verified" });
+
+    //   return res.status(400).json({message:'password updated'})
+  } catch (error) {
+    console.log(error);
+  }
+};

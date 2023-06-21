@@ -5,8 +5,11 @@ const userSchema = mongoose.Schema({
   task: {type:String},
   email: { type: String,unique: true},
   password: { type: String },
-  tell: { type: String },
-  role:{type:String,default:'driver'},
+  phone: { type: String },
+  isSeller: { type: Boolean },
+  img: { type: String },
+  location: { type: String },
+  date:{type:Date},
   // phone:{type:Number},
   status: {
     type: Boolean,
@@ -14,8 +17,9 @@ const userSchema = mongoose.Schema({
     // enum: ['pending', 'active'],
     // default: 'pending'
   },
+
   isComplete: {type:Boolean , default:false},
-  isComplete1: {type:Boolean , default:false},
+  admin: {type:Boolean , default:false},
 
 },
 {timestamps:true});
