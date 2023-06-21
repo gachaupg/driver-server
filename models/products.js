@@ -54,7 +54,6 @@ const tourSchema = mongoose.Schema(
     quiz: { type: String },
     rating: { type: Number },
     numReviews: { type: Number },
-    reviews: [reviewSchema],
     driverName: String,
     driverTell: String,
     creator: String,
