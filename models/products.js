@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 const tourSchema = mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, "can't be blank"],
     },
     description: {
       type: String,
@@ -13,7 +12,6 @@ const tourSchema = mongoose.Schema(
     brand: { type: String },
     price: {
       type: String,
-      required: [true, "can't be blank"],
     },
     picture: { type: String },
     discountPercentage: {
