@@ -12,22 +12,7 @@ const reviewSchema = new mongoose.Schema(
 
 const tourSchema = mongoose.Schema({
   name: {type:String},
-  item: {type:String},
-  images: {type: Array},
-  tell:{type:Number},
-  description:{type:String},
-  discountPercentage:{type:Number},
-  age:{type:Number},
-  infoAdd:{type:String},
-  price:{type:Number},
-  category:{type:String},
-  brand:{type:String},
-  specifications:{type:String},
-  specifications1:{type:String},
-  specifications2:{type:String},
-  specifications3:{type:String},
-  specifications4:{type:String},
-
+  
   phone:{type:String},
   address:{type:String},
  
@@ -42,27 +27,18 @@ const tourSchema = mongoose.Schema({
     enum: ['pending', 'success', 'rejected'],
     default: 'pending',
   },
-  userId: {
-    type: String,
-    required: true,
-  },
   isComplete: {type:Boolean , default:false},
   countInStock: { type: Number},
-task:{type:Number},
-quiz:{type:String},
+
 rating: { type: Number },
     numReviews: { type: Number},
     reviews: [reviewSchema],
-    driverName: String,
-    driverTell: String,
   creator: String,
-  quiz: String,
-  feedback: String,
   createdAt: {
     type: Date,
     default: new Date(),
   },
-  date: { type: Date, default: new Date() },
+  
 },
 {timestamps:true});
 
