@@ -15,6 +15,8 @@ const tourSchema = mongoose.Schema({
   
   phone:{type:String},
   address:{type:String},
+  item:{type:String},
+  images:{type:Array},
  
   userId: {
     type: String,

@@ -6,6 +6,8 @@ export const createTour = async (req, res) => {
   const {
     picture,
     address,
+    item,
+    images,
     phone,
     firstname,
     lastname,
@@ -18,6 +20,8 @@ export const createTour = async (req, res) => {
   const newTour = new TourModal({
     creator: req.userId,
     address,
+    images,
+    item,
     phone,
     picture,
     name: `${firstname} ${lastname}`,
