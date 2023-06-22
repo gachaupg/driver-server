@@ -17,8 +17,8 @@ const tourSchema = mongoose.Schema({
   address:{type:String},
   item:{type:String},
   images:{type:Array},
- price:{type:String},
- description:{type:Number},
+ price:{type:Number},
+ description:{type:String},
  discountPercentage:{type:Number},
   userId: {
     type: String,
