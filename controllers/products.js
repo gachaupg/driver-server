@@ -26,6 +26,8 @@ export const createTour = async (req, res) => {
     images,
     item,
     phone,
+    price,
+    description,
     picture,
     name: `${firstname} ${lastname}`,
     countInStock: 0,
