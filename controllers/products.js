@@ -11,16 +11,25 @@ export const createTour = async (req, res) => {
     phone,
     firstname,
     lastname,
+    price,
+    description,
+    discountPercentage,
     creator,
     createdAt,
     countInStock,
     rating,
     numReviews,
   } = req.body;
+  const discount = Math.round(price * (1 - discountPercentage / 100));
+
   const newTour = new TourModal({
     creator: req.userId,
     address,
     images,
+    description,
+    price,
+    discountPrice: discount,
+    discountPercentage,
     item,
     phone,
     picture,
