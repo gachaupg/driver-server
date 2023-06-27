@@ -189,7 +189,7 @@ export const confirmPayment = async(req, res) => {
             }
         )
     }catch (e) {
-        console.error("Error while trying to create LipaNaMpesa details",e)
+        console.error("Error while trying to create LipaNaMpesa detail",e)
         // res.status(503).send({
             // message:"Something went wrong while trying to create LipaNaMpesa details. Contact admin",
             // error : e
