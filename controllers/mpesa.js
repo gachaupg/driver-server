@@ -38,7 +38,7 @@ export const initiateSTKPush = async(req, res) => {
         //shortcode + passkey + timestamp
         const password = new Buffer.from(process.env.BUSINESS_SHORT_CODE + process.env.PASS_KEY + timestamp).toString('base64')
         // create callback url
-        const callback_url = await ngrok.connect('https://erytyu.onrender.com/');
+        const callback_url = await ngrok.connect('https://hustle-kenya-7azi.onrender.com/');
         const api = ngrok.getApi();
         await api.listTunnels();
 
