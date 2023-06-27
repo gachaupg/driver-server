@@ -18,6 +18,7 @@ import commentRouter from "./routes/commentUpdate.js";
 import invoiceRouter from "./routes/invoice.js";
 import quizRouter from "./routes/Quiz.js";
 import feedbackRouter from "./routes/feedback.js";
+import mpesaRouter from "./routes/mpesa.js";
     // "node": ">=14 <15"
 
 const corsOptions ={
@@ -26,7 +27,7 @@ const corsOptions ={
   optionSuccessStatus:200,
 }
 
-const PORT=5000
+const PORT=process.env.PORT
 const app=express()
 app.set("view engine", "ejs");
 // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
@@ -39,9 +40,9 @@ app.use(cors(corsOptions));
 app.get('/',(req,res)=>{
     res.send('hello');
 })
-app.listen(PORT,()=>{
-    console.log('listening');
-})
+// app.listen(PORT,()=>{
+    // console.log('listening');
+// })
 
 app.use('/users',userRouter)
 app.use('/products',productRouter)
@@ -57,6 +58,7 @@ app.use("/api/comment", commentRouter);
 app.use("/invoice", invoiceRouter);
 app.use("/quiz", quizRouter);
 app.use("/feedback", feedbackRouter);
+app.use("/mpesa", mpesaRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL)
