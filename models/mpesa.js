@@ -5,7 +5,7 @@ const messageSchema = mongoose.Schema({
  
   amount:{type:Number},
   phone:{type:Number},
-  Order_ID:{type:String},
+  Order_ID:{type:String,default:'1235'},
   name:{type:String},
  email:{type:String},
  location:{type:String},
