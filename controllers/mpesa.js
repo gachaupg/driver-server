@@ -1,6 +1,6 @@
 import request from "request";
 import "dotenv/config";
-import { getTimestamp } from "../Utils/timestamp.js";
+import { getTimestamp } from "../utils/timestamp.js";
 import ngrok from "ngrok";
 import mpesaModal from "../models/mpesa.js";
 import mongoose from 'mongoose'
