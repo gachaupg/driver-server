@@ -15,8 +15,8 @@ router.get("/reset-password/:id/:token", resetPassword);
 router.post("/reset-password/:id/:token", changePassword);
 // router.put("/:id",  userStatus);
 router.put("/update/:id", updateTour)
-router.put("/follow/:id", Login, Follow)
-router.put("/unfollow/:id", Login, unFollow)
+router.put("/follow", Login, Follow)
+router.put("/unfollow", Login, unFollow)
 // router.put("/:id", async (req, res) => {
 //     const schema = Joi.object({
 //       task: Joi.string().min(3).max(300).required(),
