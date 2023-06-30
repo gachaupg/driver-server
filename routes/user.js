@@ -1,7 +1,8 @@
 import express from "express";
-import { signup, signin, AllUsers, getUser, updateStatusTour, userStatus, updateTour, forgotPassword, resetPassword, changePassword } from "../controllers/user.js";
+import { signup, signin, AllUsers, getUser, updateStatusTour, userStatus, updateTour, forgotPassword, resetPassword, changePassword, Follow } from "../controllers/user.js";
 import UserModal from "../models/user.js";
 import Joi from "joi";
+import { Login } from "../middleware/RequireLogin.js";
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.get("/reset-password/:id/:token", resetPassword);
 router.post("/reset-password/:id/:token", changePassword);
 // router.put("/:id",  userStatus);
 router.put("/update/:id", updateTour)
+router.put("/follow/:id", Login, Follow)
 // router.put("/:id", async (req, res) => {
 //     const schema = Joi.object({
 //       task: Joi.string().min(3).max(300).required(),
