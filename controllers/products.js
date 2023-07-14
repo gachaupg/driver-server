@@ -31,7 +31,7 @@ export const createTour = async (req, res) => {
     rating,
     numReviews,
   } = req.body;
-  const discount = Math.round(price*(1-discountPercentage/100))
+  const discount = Math.round(price * (1 - discountPercentage / 100));
 
   const newTour = new TourModal({
     creator: req.userId,
@@ -41,18 +41,18 @@ export const createTour = async (req, res) => {
     phone,
     price,
     discountPrice,
-age,
-tell,
-infoAdd,
-category,
-brand,
-specifications,
-specifications1,
-specifications2,
-specifications3,
-specifications4,
-discountPercentage,
-discountPrice:discount,
+    age,
+    tell,
+    infoAdd,
+    category,
+    brand,
+    specifications,
+    specifications1,
+    specifications2,
+    specifications3,
+    specifications4,
+    discountPercentage,
+    discountPrice: discount,
     description,
     picture,
     name: `${firstname} ${lastname}`,
@@ -167,24 +167,70 @@ export const deleteTour = async (req, res) => {
     await TourModal.findByIdAndRemove(id);
     res.json({ message: "Tour deleted successfully" });
   } catch (error) {
-    res.status(404).json({ message: "Something went wrong" });
+    res.status(404).json({ message: "Something went wrong on ther server" });
   }
 };
 
 export const updateTour = async (req, res) => {
   const { id } = req.params;
-  const { name, apartment, creator, imageFile, houseNO } = req.body;
+  const {
+    picture,
+    address,
+    item,
+    images,
+    phone,
+    firstname,
+    lastname,
+    price,
+    description,
+    discountPrice,
+    age,
+    tell,
+    infoAdd,
+    category,
+    brand,
+    specifications,
+    specifications1,
+    specifications2,
+    specifications3,
+    specifications4,
+    discountPercentage,
+    creator,
+    createdAt,
+    countInStock,
+    rating,
+    numReviews,
+  } = req.body;
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).json({ message: `No tour exist with id: ${id}` });
     }
 
     const updatedTour = {
-      creator,
-      name,
-      apartment,
-      houseNO,
-      imageFile,
+      address,
+      images,
+      item,
+      phone,
+      price,
+      discountPrice,
+      age,
+      tell,
+      infoAdd,
+      category,
+      brand,
+      specifications,
+      specifications1,
+      specifications2,
+      specifications3,
+      specifications4,
+      discountPercentage,
+      discountPrice: discount,
+      description,
+      picture,
+      name: `${firstname} ${lastname}`,
+      countInStock: 0,
+      rating: 0,
+      numReviews: 0,
       _id: id,
     };
     await TourModal.findByIdAndUpdate(id, updatedTour, { new: true });
