@@ -30,7 +30,7 @@ export const getToursByUser = async (req, res) => {
 };
 
 export const initiateSTKPush = async (req, res) => {
-  const { amount, phone, name, email, location, Order_ID } = req.body;
+  const { amount, phone, name, email, location,status ,isComplete,Order_ID } = req.body;
 
   try {
     const url =
@@ -73,6 +73,8 @@ export const initiateSTKPush = async (req, res) => {
       amount,
       name,
       email,
+      status,
+      isComplete,
       location,
       Order_ID,
       creator: req.userId,

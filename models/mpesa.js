@@ -11,7 +11,14 @@ const messageSchema = mongoose.Schema({
  location:{type:String},
   creator: String,
 
+  status: {
+    type: Boolean,
+    default:false
+    // enum: ['pending', 'active'],
+    // default: 'pending'
+  },
 
+  isComplete: {type:Boolean , default:false},
 
 },
 {timestamps:true});
