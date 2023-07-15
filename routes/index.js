@@ -136,7 +136,7 @@ router.get ('/technology',  async (req,res)=>{
         res.status(500).send(error)
     }
 })
-router.get ('/beaty',  async (req,res)=>{
+router.get ('/beuaty',  async (req,res)=>{
     const previosMonth=moment()
     .month(moment().month()-1)
     .set('date',1)
@@ -144,7 +144,7 @@ router.get ('/beaty',  async (req,res)=>{
     // res.status(200).send(previosMonth)
     try {
         const users= await tourModal.aggregate([
-            {$match:{category:'beaty'},
+            {$match:{category:'beuaty'},
         
         }
        
