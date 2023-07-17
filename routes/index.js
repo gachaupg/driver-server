@@ -367,4 +367,25 @@ router.get('/const', async (req, res) => {
       res.status(500).send(error);
     }
   });
+  router.get('/hustle', async (req, res) => {
+    const previousMonth = moment()
+      .month(moment().month() - 1)
+      .set('date', 1)
+      .format('YYYY-MM-DD HH:mm:ss');
+  
+    try {
+      const users = await tourModal.aggregate([
+        {
+          $match: {
+            price: { $exists: true, $ne: '' } // Fetch only when "construction" is not empty
+          }
+        }
+      ]);
+  
+      res.status(200).send(users);
+    } catch (error) {
+      console.log('error', error);
+      res.status(500).send(error);
+    }
+  });
 export default router;
