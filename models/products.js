@@ -13,6 +13,9 @@ const reviewSchema = new mongoose.Schema(
 const tourSchema = mongoose.Schema(
   {
     name: { type: String },
+    construction: { type: String },
+    constDescription: { type: String },
+    constLocation: { type: String },
 
     phone: { type: String },
     address: { type: String },

@@ -14,6 +14,10 @@ export const createTour = async (req, res) => {
     price,
     description,
     discountPrice,
+    construction,
+    constDescription,
+    constLocation,
+
     age,
     tell,
     infoAdd,
@@ -45,6 +49,10 @@ export const createTour = async (req, res) => {
     tell,
     infoAdd,
     category,
+    construction,
+    constDescription,
+    constLocation,
+
     brand,
     specifications,
     specifications1,

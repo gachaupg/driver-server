@@ -344,6 +344,24 @@ router.get ('/others',  async (req,res)=>{
         console.log('error',error);
         res.status(500).send(error)
     }
+    router.get ('/construction',  async (req,res)=>{
+        const previosMonth=moment()
+        .month(moment().month()-1)
+        .set('date',1)
+        .format('YYYY-MM-DD HH:mm:ss');
+        // res.status(200).send(previosMonth)
+        try {
+            const users= await tourModal.aggregate([
+                {$match:{construct},
+            
+            }
+           
+            ]);
+            res.status(200).send(users);
+        } catch (error) {
+            console.log('error',error);
+            res.status(500).send(error)
+        }
 })
 
 export default router;
