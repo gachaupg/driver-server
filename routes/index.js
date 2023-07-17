@@ -356,7 +356,7 @@ router.get('/const', async (req, res) => {
       const users = await tourModal.aggregate([
         {
           $match: {
-            construction: { $exists: true, $ne: '' } // Fetch only when "construction" is not empty
+            constDescription: { $exists: true, $ne: '' } // Fetch only when "construction" is not empty
           }
         }
       ]);
