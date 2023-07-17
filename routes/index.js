@@ -356,7 +356,7 @@ router.get('/const', async (req, res) => {
       const users = await tourModal.aggregate([
         {
           $match: {
-            construction: { $ne: '' } // Fetch only when "construction" has some values
+            construction: { $exists: true, $ne: '' } // Fetch only when "construction" is not empty
           }
         }
       ]);
@@ -367,11 +367,4 @@ router.get('/const', async (req, res) => {
       res.status(500).send(error);
     }
   });
-  
-  
-  
-  
-  
-  
-  
 export default router;
